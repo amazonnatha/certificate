@@ -62,16 +62,16 @@
 
         .input-container {
             margin-top: 10px; /* Space above the input section */
-            display: flex; /* Use flexbox for alignment */
-            justify-content: center; /* Center items horizontally */
-            align-items: center; /* Center items vertically */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center align input elements */
         }
 
         .input-container input {
-            width: 40%; /* Width for both inputs */
+            width: 80%; /* Full width for the input */
             max-width: 300px; /* Maximum width of the input */
             padding: 10px; /* Padding for the input */
-            margin: 0 10px; /* Space between inputs */
+            margin-bottom: 10px; /* Space below the input */
             border: 1px solid #2c3e50; /* Border for the input */
             border-radius: 5px; /* Rounded corners for the input */
         }
@@ -128,7 +128,7 @@
     <div class="image-container">
         <div class="input-container">
             <input type="text" id="imageName" placeholder="Enter Certificate No.">
-            <input type="email" id="email" placeholder="Enter Your Email">
+            <input type="email" id="emailAddress" placeholder="Enter Email Address"> <!-- New email input -->
             <button id="showImageButton">Show Image</button>
         </div>
         <img src="" id="CertificateImage" alt="Certificate" style="display:none;"> <!-- Hide image initially -->
@@ -139,18 +139,38 @@
     </footer>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxSoD2dTPhHZE1YhLZv9vcPA0zqIuhUmgp30LX7ld-3zYmGDNUCNbO57ejpJFqeoo4o/exec';
+
         document.getElementById('showImageButton').onclick = function() {
             const imageName = document.getElementById('imageName').value.trim(); // Get the input value
-            const email = document.getElementById('email').value.trim(); // Get the email value
+            const emailAddress = document.getElementById('emailAddress').value.trim(); // Get the email input value
+            const timestamp = new Date().toLocaleString(); // Get the current timestamp
+
+            // Check if the email address is in a valid format
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(emailAddress)) {
+                alert("Please enter a valid email address."); // Alert if email format is invalid
+                return;
+            }
+
             if (imageName) {
-                const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
-                const certificateImage = document.getElementById('CertificateImage');
-                certificateImage.src = imageUrl; // Set the image source
-                certificateImage.style.display = 'block'; // Show the image
-                console.log("Image source set to:", imageUrl); // Log the URL for debugging
-                console.log("Email entered:", email); // Log the email for debugging
+                const certificateData = { imageName: imageName, email: emailAddress, timestamp: timestamp }; // Prepare data to send
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(certificateData),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Success:", data);
+                    const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
+                    const certificateImage = document.getElementById('CertificateImage');
+                    certificateImage.src = imageUrl; // Set the image source
+                    certificateImage.style.display = 'block'; // Show the image
+                })
+                .catch(error => console.error("Error:", error));
             } else {
-                alert("Please enter a valid certificate number."); // Alert if the input is empty
+                alert("Please enter a valid image name."); // Alert if the input is empty
             }
         };
     </script>
