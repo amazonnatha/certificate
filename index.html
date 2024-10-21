@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JGTL Online Report Verification</title>
     <style>
-        /* Your existing styles remain the same */
         .is-center {
             text-align: center;
         }
@@ -159,7 +158,12 @@
                     body: JSON.stringify(certificateData),
                     headers: { 'Content-Type': 'application/json' }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok.");
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     console.log("Success:", data);
                     const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
