@@ -115,9 +115,6 @@
             }
         }
     </style>
-
-    <!-- Cloudflare Turnstile script -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -132,17 +129,8 @@
         <div class="input-container">
             <input type="text" id="imageName" placeholder="Enter Certificate No.">
             <input type="email" id="email" placeholder="Enter Your Email">
+            <button id="showImageButton">Show Image</button>
         </div>
-
-        <!-- Cloudflare Turnstile widget -->
-        <div class="input-container">
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyE1s3xjsL8KgDP"></div>
-        </div>
-
-        <div class="input-container">
-            <button id="showImageButton">Verify Report</button>
-        </div>
-
         <img src="" id="CertificateImage" alt="Certificate" style="display:none;"> <!-- Hide image initially -->
     </div>
 
@@ -155,7 +143,7 @@
             const imageName = document.getElementById('imageName').value.trim(); // Get the input value
             const email = document.getElementById('email').value.trim(); // Get the email value
             if (imageName) {
-                const imageUrl = https://verify.jgtl.org/${imageName}.png; // Construct the image URL
+                const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
                 const certificateImage = document.getElementById('CertificateImage');
                 certificateImage.src = imageUrl; // Set the image source
                 certificateImage.style.display = 'block'; // Show the image
