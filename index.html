@@ -20,6 +20,7 @@
             align-items: center;
             background-color: #d9ddef;
             font-family: Arial, sans-serif;
+            padding: 20px; /* General padding */
         }
 
         /* Logo container */
@@ -30,27 +31,27 @@
         }
 
         .logo-container img {
-            width: 80%; /* Make logo responsive */
+            width: 70%; /* Make logo responsive for both mobile and web */
             max-width: 300px; /* Maximum width of the logo */
-            height: auto;
-            margin-bottom: 5px; /* Space below the logo */
+            height: auto; /* Maintain aspect ratio */
         }
 
         .combined-title {
             color: #2c3e50; /* Color for title text */
-            font-size: 1.5rem; /* Adjusted for better mobile display */
-            margin: 5px 0; /* Space above and below the title */
+            font-size: 1.5rem; /* Title font size */
+            margin: 10px 0; /* Space above and below the title */
         }
 
         /* Styling for the Image and Footer */
         .image-container {
-            width: 90%; /* Increased width for mobile */
-            max-width: 900px;
+            width: 90%; /* Width for both mobile and web */
+            max-width: 900px; /* Maximum width for large screens */
             padding: 20px;
             background-color: #ecf0f1;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
+            margin-top: 20px; /* Space above the image container */
         }
 
         .image-container img {
@@ -113,15 +114,24 @@
             footer {
                 font-size: 10px; /* Smaller footer font for mobile */
             }
+
+            .logo-container img {
+                width: 80%; /* Adjust logo size for mobile */
+            }
         }
     </style>
+
+    <!-- Cloudflare Turnstile script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
 
     <!-- Logo Section -->
     <div class="logo-container">
-        <img src="https://verify.jgtl.org/Jade%20and%20Gems%20Testing%20Laboratory(2).png" alt="Jade and Gems Testing Laboratory Logo">
+        <a href="https://jgtl.org" target="_blank"> <!-- Add link to the logo -->
+            <img src="https://verify.jgtl.org/Jade%20and%20Gems%20Testing%20Laboratory(2).png" alt="Jade and Gems Testing Laboratory Logo">
+        </a>
         <div class="combined-title">Jade and Gems Testing Laboratory - Online Report Verification</div>
     </div>
 
@@ -129,8 +139,17 @@
         <div class="input-container">
             <input type="text" id="imageName" placeholder="Enter Certificate No.">
             <input type="email" id="email" placeholder="Enter Your Email">
-            <button id="showImageButton">Show Image</button>
         </div>
+
+        <!-- Cloudflare Turnstile widget -->
+        <div class="input-container">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyE1s3xjsL8KgDP"></div>
+        </div>
+
+        <div class="input-container">
+            <button id="showImageButton">Verify Report</button>
+        </div>
+
         <img src="" id="CertificateImage" alt="Certificate" style="display:none;"> <!-- Hide image initially -->
     </div>
 
