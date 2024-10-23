@@ -60,16 +60,6 @@
             margin-top: 10px; /* Space above the image */
         }
 
-        .loading-spinner {
-            display: none; /* Hide spinner initially */
-            margin-top: 10px; /* Space above the spinner */
-        }
-
-        .loading-spinner img {
-            width: 50px; /* Set spinner size */
-            height: 50px; /* Set spinner size */
-        }
-
         .input-container {
             margin-top: 10px; /* Space above the input section */
             display: flex; /* Use flexbox for alignment */
@@ -125,6 +115,9 @@
             }
         }
     </style>
+
+    <!-- Cloudflare Turnstile script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -139,12 +132,18 @@
         <div class="input-container">
             <input type="text" id="imageName" placeholder="Enter Certificate No.">
             <input type="email" id="email" placeholder="Enter Your Email">
+        </div>
+
+        <!-- Cloudflare Turnstile widget -->
+        <div class="input-container">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyE1s3xjsL8KgDP"></div>
+        </div>
+
+        <div class="input-container">
             <button id="showImageButton">Show Image</button>
         </div>
+
         <img src="" id="CertificateImage" alt="Certificate" style="display:none;"> <!-- Hide image initially -->
-        <div class="loading-spinner" id="loadingSpinner">
-            <img src="https://i.imgur.com/llF5Y3Y.gif" alt="Loading..."> <!-- Link to a loading spinner gif -->
-        </div>
     </div>
 
     <footer>
@@ -155,23 +154,11 @@
         document.getElementById('showImageButton').onclick = function() {
             const imageName = document.getElementById('imageName').value.trim(); // Get the input value
             const email = document.getElementById('email').value.trim(); // Get the email value
-            const loadingSpinner = document.getElementById('loadingSpinner'); // Get the loading spinner
-
             if (imageName) {
-                loadingSpinner.style.display = 'block'; // Show the spinner
                 const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
                 const certificateImage = document.getElementById('CertificateImage');
-                
                 certificateImage.src = imageUrl; // Set the image source
-                certificateImage.onload = function() {
-                    loadingSpinner.style.display = 'none'; // Hide spinner when image is loaded
-                    certificateImage.style.display = 'block'; // Show the image
-                };
-                certificateImage.onerror = function() {
-                    loadingSpinner.style.display = 'none'; // Hide spinner if there's an error
-                    alert("Failed to load image. Please check the certificate number."); // Alert if image fails to load
-                };
-
+                certificateImage.style.display = 'block'; // Show the image
                 console.log("Image source set to:", imageUrl); // Log the URL for debugging
                 console.log("Email entered:", email); // Log the email for debugging
             } else {
