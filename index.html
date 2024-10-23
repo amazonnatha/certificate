@@ -20,7 +20,6 @@
             align-items: center;
             background-color: #d9ddef;
             font-family: Arial, sans-serif;
-            padding: 20px; /* General padding */
         }
 
         /* Logo container */
@@ -31,27 +30,27 @@
         }
 
         .logo-container img {
-            width: 70%; /* Make logo responsive for both mobile and web */
+            width: 80%; /* Make logo responsive */
             max-width: 300px; /* Maximum width of the logo */
-            height: auto; /* Maintain aspect ratio */
+            height: auto;
+            margin-bottom: 5px; /* Space below the logo */
         }
 
         .combined-title {
             color: #2c3e50; /* Color for title text */
-            font-size: 1.5rem; /* Title font size */
-            margin: 10px 0; /* Space above and below the title */
+            font-size: 1.5rem; /* Adjusted for better mobile display */
+            margin: 5px 0; /* Space above and below the title */
         }
 
         /* Styling for the Image and Footer */
         .image-container {
-            width: 90%; /* Width for both mobile and web */
-            max-width: 900px; /* Maximum width for large screens */
+            width: 90%; /* Increased width for mobile */
+            max-width: 900px;
             padding: 20px;
             background-color: #ecf0f1;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
-            margin-top: 20px; /* Space above the image container */
         }
 
         .image-container img {
@@ -114,10 +113,6 @@
             footer {
                 font-size: 10px; /* Smaller footer font for mobile */
             }
-
-            .logo-container img {
-                width: 80%; /* Adjust logo size for mobile */
-            }
         }
     </style>
 
@@ -129,9 +124,7 @@
 
     <!-- Logo Section -->
     <div class="logo-container">
-        <a href="https://jgtl.org" target="_blank"> <!-- Add link to the logo -->
-            <img src="https://verify.jgtl.org/Jade%20and%20Gems%20Testing%20Laboratory(2).png" alt="Jade and Gems Testing Laboratory Logo">
-        </a>
+        <img src="https://verify.jgtl.org/Jade%20and%20Gems%20Testing%20Laboratory(2).png" alt="Jade and Gems Testing Laboratory Logo">
         <div class="combined-title">Jade and Gems Testing Laboratory - Online Report Verification</div>
     </div>
 
@@ -162,7 +155,7 @@
             const imageName = document.getElementById('imageName').value.trim(); // Get the input value
             const email = document.getElementById('email').value.trim(); // Get the email value
             if (imageName) {
-                const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
+                const imageUrl = https://verify.jgtl.org/${imageName}.png; // Construct the image URL
                 const certificateImage = document.getElementById('CertificateImage');
                 certificateImage.src = imageUrl; // Set the image source
                 certificateImage.style.display = 'block'; // Show the image
