@@ -20,7 +20,7 @@
             align-items: center;
             background-color: #d9ddef;
             font-family: Arial, sans-serif;
-            padding-top: 20px; /* Add padding to the top */
+            padding-top: 20px; /* General padding for mobile */
         }
 
         /* Logo container */
@@ -31,9 +31,9 @@
         }
 
         .logo-container img {
-            width: 70%; /* Make logo responsive, slightly smaller */
+            width: 70%; /* Make logo responsive for mobile */
             max-width: 250px; /* Adjust maximum width of the logo */
-            height: auto;
+            height: auto; /* Maintain aspect ratio */
             margin-bottom: 5px; /* Space below the logo */
         }
 
@@ -103,6 +103,11 @@
         }
 
         @media (max-width: 768px) {
+            html,
+            body {
+                padding-top: 20px; /* More padding for mobile */
+            }
+
             .is-center {
                 font-size: 20px; /* Adjust font size for mobile */
             }
@@ -113,6 +118,22 @@
 
             footer {
                 font-size: 10px; /* Smaller footer font for mobile */
+            }
+        }
+
+        @media (min-width: 769px) {
+            html,
+            body {
+                padding-top: 10px; /* Less padding for desktop */
+            }
+
+            .logo-container img {
+                width: 50%; /* Make logo smaller for larger screens */
+                max-width: 300px; /* Keep maximum width for larger screens */
+            }
+
+            .combined-title {
+                font-size: 1.5rem; /* Maintain size for larger screens */
             }
         }
     </style>
