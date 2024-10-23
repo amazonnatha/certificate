@@ -115,6 +115,9 @@
             }
         }
     </style>
+
+    <!-- Cloudflare Turnstile script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -129,8 +132,17 @@
         <div class="input-container">
             <input type="text" id="imageName" placeholder="Enter Certificate No.">
             <input type="email" id="email" placeholder="Enter Your Email">
+        </div>
+
+        <!-- Cloudflare Turnstile widget -->
+        <div class="input-container">
+            <div class="cf-turnstile" data-sitekey="your-site-key"></div>
+        </div>
+
+        <div class="input-container">
             <button id="showImageButton">Show Image</button>
         </div>
+
         <img src="" id="CertificateImage" alt="Certificate" style="display:none;"> <!-- Hide image initially -->
     </div>
 
