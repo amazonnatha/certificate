@@ -20,103 +20,104 @@
             align-items: center;
             background-color: #d9ddef;
             font-family: Arial, sans-serif;
-            padding: 20px; /* General padding */
+            padding: 20px;
         }
 
         /* Logo container */
         .logo-container {
             text-align: center;
-            margin-bottom: 10px; /* Space below the logo */
-            width: 100%; /* Full width to keep center alignment */
+            margin-bottom: 10px;
+            width: 100%;
         }
 
         .logo-container img {
-            width: 70%; /* Make logo responsive for both mobile and web */
-            max-width: 300px; /* Maximum width of the logo */
-            height: auto; /* Maintain aspect ratio */
+            width: 70%;
+            max-width: 300px;
+            height: auto;
         }
 
         .combined-title {
-            color: #2c3e50; /* Color for title text */
-            font-size: 1.5rem; /* Title font size */
-            margin: 10px 0; /* Space above and below the title */
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin: 10px 0;
         }
 
         /* Styling for the Image and Footer */
         .image-container {
-            width: 90%; /* Width for both mobile and web */
-            max-width: 900px; /* Maximum width for large screens */
+            width: 90%;
+            max-width: 900px;
             padding: 20px;
             background-color: #ecf0f1;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
-            margin-top: 20px; /* Space above the image container */
+            margin-top: 20px;
         }
 
         .image-container img {
             max-width: 100%;
             height: auto;
             border-radius: 10px;
-            margin-top: 10px; /* Space above the image */
+            margin-top: 10px;
         }
 
         .input-container {
-            margin-top: 10px; /* Space above the input section */
-            display: flex; /* Use flexbox for alignment */
-            justify-content: center; /* Center items horizontally */
-            align-items: center; /* Center items vertically */
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .input-container input {
-            width: 40%; /* Width for both inputs */
-            max-width: 300px; /* Maximum width of the input */
-            padding: 10px; /* Padding for the input */
-            margin: 0 10px; /* Space between inputs */
-            border: 1px solid #2c3e50; /* Border for the input */
-            border-radius: 5px; /* Rounded corners for the input */
+            width: 40%;
+            max-width: 300px;
+            padding: 10px;
+            margin: 0 10px;
+            border: 1px solid #2c3e50;
+            border-radius: 5px;
+            text-transform: uppercase; /* Automatically convert input to uppercase */
         }
 
         .input-container button {
-            padding: 10px 15px; /* Padding for the button */
-            background-color: #2c3e50; /* Button background color */
-            color: white; /* Text color for the button */
-            border: none; /* Remove border */
-            border-radius: 5px; /* Rounded corners for the button */
-            cursor: pointer; /* Change cursor on hover */
-            transition: background-color 0.3s; /* Transition effect */
+            padding: 10px 15px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .input-container button:hover {
-            background-color: #bdc3c7; /* Change button color on hover */
+            background-color: #bdc3c7;
         }
 
         footer {
-            position: relative; /* Changed to relative for better layout */
-            bottom: 5px; /* Adjusted to prevent overlap */
+            position: relative;
+            bottom: 5px;
             width: 100%;
             text-align: center;
-            color: black; /* Changed color to black */
-            font-size: 12px; /* Smaller font size for footer */
-            margin-top: auto; /* Ensure footer stays at the bottom */
-            padding: 5px 0; /* Padding for footer */
+            color: black;
+            font-size: 12px;
+            margin-top: auto;
+            padding: 5px 0;
         }
 
         @media (max-width: 768px) {
             .is-center {
-                font-size: 20px; /* Adjust font size for mobile */
+                font-size: 20px;
             }
 
             .combined-title {
-                font-size: 1.2rem; /* Slightly smaller title on mobile */
+                font-size: 1.2rem;
             }
 
             footer {
-                font-size: 10px; /* Smaller footer font for mobile */
+                font-size: 10px;
             }
 
             .logo-container img {
-                width: 80%; /* Adjust logo size for mobile */
+                width: 80%;
             }
         }
     </style>
@@ -129,7 +130,7 @@
 
     <!-- Logo Section -->
     <div class="logo-container">
-        <a href="https://jgtl.org" target="_blank"> <!-- Add link to the logo -->
+        <a href="https://jgtl.org" target="_blank">
             <img src="https://verify.jgtl.org/Jade%20and%20Gems%20Testing%20Laboratory(2).png" alt="Jade and Gems Testing Laboratory Logo">
         </a>
         <div class="combined-title">Jade and Gems Testing Laboratory - Online Report Verification</div>
@@ -137,7 +138,7 @@
 
     <div class="image-container">
         <div class="input-container">
-            <input type="text" id="imageName" placeholder="Enter Certificate No.">
+            <input type="text" id="imageName" placeholder="Enter Certificate No." style="text-transform:uppercase;">
             <input type="email" id="email" placeholder="Enter Your Email">
         </div>
 
@@ -150,7 +151,7 @@
             <button id="showImageButton">Verify Report</button>
         </div>
 
-        <img src="" id="CertificateImage" alt="Certificate" style="display:none;"> <!-- Hide image initially -->
+        <img src="" id="CertificateImage" alt="Certificate" style="display:none;">
     </div>
 
     <footer>
@@ -158,23 +159,46 @@
     </footer>
 
     <script>
-        // Automatic uppercase conversion for Certificate No.
-        document.getElementById('imageName').addEventListener('input', function() {
-            this.value = this.value.toUpperCase(); // Convert input to uppercase
-        });
-
         document.getElementById('showImageButton').onclick = function() {
-            const imageName = document.getElementById('imageName').value.trim(); // Get the input value
-            const email = document.getElementById('email').value.trim(); // Get the email value
+            const imageName = document.getElementById('imageName').value.trim(); // Get the certificate number
+            const email = document.getElementById('email').value.trim(); // Get the email
+
+            const folders = ['qr_codes', 'other_folder']; // Array of folders to search
+            let found = false; // To track if the image is found
+            const certificateImage = document.getElementById('CertificateImage');
+
+            function checkImageInFolder(index) {
+                if (index >= folders.length) {
+                    if (!found) {
+                        alert('Certificate not found in any folder.');
+                        certificateImage.style.display = 'none';
+                    }
+                    return;
+                }
+
+                const folder = folders[index];
+                const imageUrl = `https://verify.jgtl.org/${folder}/${imageName}.png`;
+                const img = new Image();
+                img.src = imageUrl;
+
+                img.onload = function() {
+                    certificateImage.src = imageUrl; // Set the image source
+                    certificateImage.style.display = 'block'; // Show the image
+                    console.log("Image source set to:", imageUrl); // Log the URL for debugging
+                    console.log("Email entered:", email); // Log the email for debugging
+                    found = true; // Image was found
+                };
+
+                img.onerror = function() {
+                    // Image not found in this folder, try the next one
+                    checkImageInFolder(index + 1);
+                };
+            }
+
             if (imageName) {
-                const imageUrl = `https://verify.jgtl.org/${imageName}.png`; // Construct the image URL
-                const certificateImage = document.getElementById('CertificateImage');
-                certificateImage.src = imageUrl; // Set the image source
-                certificateImage.style.display = 'block'; // Show the image
-                console.log("Image source set to:", imageUrl); // Log the URL for debugging
-                console.log("Email entered:", email); // Log the email for debugging
+                checkImageInFolder(0); // Start checking from the first folder
             } else {
-                alert("Please enter a valid certificate number."); // Alert if the input is empty
+                alert("Please enter a valid certificate number.");
             }
         };
     </script>
