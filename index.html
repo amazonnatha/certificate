@@ -6,12 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JGTL Online Report Verification</title>
     <style>
-        .is-center {
-            text-align: center;
-        }
-
-        html,
-        body {
+        /* Basic Styles */
+        html, body {
             height: 100%;
             margin: 0;
             display: flex;
@@ -23,7 +19,6 @@
             padding: 20px;
         }
 
-        /* Logo container */
         .logo-container {
             text-align: center;
             margin-bottom: 10px;
@@ -42,14 +37,13 @@
             margin: 10px 0;
         }
 
-        /* Styling for the Image and Footer */
         .image-container {
             width: 90%;
             max-width: 900px;
             padding: 20px;
             background-color: #ecf0f1;
             border-radius: 15px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
             margin-top: 20px;
         }
@@ -75,7 +69,7 @@
             margin: 0 10px;
             border: 1px solid #2c3e50;
             border-radius: 5px;
-            text-transform: uppercase; /* Automatically convert input to uppercase */
+            text-transform: uppercase;
         }
 
         .input-container button {
@@ -93,8 +87,6 @@
         }
 
         footer {
-            position: relative;
-            bottom: 5px;
             width: 100%;
             text-align: center;
             color: black;
@@ -103,17 +95,7 @@
             padding: 5px 0;
         }
 
-        /* Canva embed container - initially hidden */
-        #canvaEmbedContainer {
-            display: none;
-            margin-top: 20px;
-        }
-
         @media (max-width: 768px) {
-            .is-center {
-                font-size: 20px;
-            }
-
             .combined-title {
                 font-size: 1.2rem;
             }
@@ -127,9 +109,6 @@
             }
         }
     </style>
-
-    <!-- Google reCAPTCHA script -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -143,29 +122,32 @@
     </div>
 
     <div class="image-container">
+        <!-- Input Form -->
         <div class="input-container">
-            <input type="text" id="imageName" placeholder="Enter Certificate No." style="text-transform:uppercase;">
-            <input type="email" id="email" placeholder="Enter Your Email">
+            <input type="text" id="imageName" placeholder="Enter Certificate No." required>
+            <input type="email" id="email" placeholder="Enter Your Email" required>
         </div>
 
         <!-- Google reCAPTCHA widget -->
         <div class="input-container">
-            <div class="g-recaptcha" data-sitekey="6LeKJm8qAAAAAGcDT5LEX5Y2fuDNcYnjhOK_9jzu"></div> <!-- Your reCAPTCHA site key is now added -->
+            <div class="g-recaptcha" data-sitekey="6LeKJm8qAAAAAGcDT5LEX5Y2fuDNcYnjhOK_9jzu"></div> <!-- Your reCAPTCHA site key -->
         </div>
 
+        <!-- Verify Button -->
         <div class="input-container">
             <button id="showImageButton">Verify Report</button>
         </div>
 
+        <!-- Certificate Image -->
         <img src="" id="CertificateImage" alt="Certificate" style="display:none;">
-    </div>
 
-    <!-- Canva Embed Container -->
-    <div id="canvaEmbedContainer">
-        <div style="position: relative; width: 100%; height: 0; padding-top: 70.7071%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                src="https://www.canva.com/design/DAGU7Xr8i3Q/2aLxHbDg2Gbqnszyl1RE3g/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-            </iframe>
+        <!-- Canva Embed Container -->
+        <div id="canvaEmbedContainer" style="display: none;">
+            <div style="position: relative; width: 100%; padding-top: 70.7%; box-shadow: 0 2px 8px rgba(63,69,81,0.16); border-radius: 8px;">
+                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none;"
+                    src="https://www.canva.com/design/DAGU7Xr8i3Q/2aLxHbDg2Gbqnszyl1RE3g/view?embed" allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 
@@ -174,50 +156,54 @@
     </footer>
 
     <script>
-        document.getElementById('showImageButton').onclick = function() {
-            const imageName = document.getElementById('imageName').value.trim(); // Get the certificate number
-            const email = document.getElementById('email').value.trim(); // Get the email
-
-            const folders = ['qr_codes', 'other_folder']; // Array of folders to search
-            let found = false; // To track if the image is found
+        document.getElementById('showImageButton').onclick = async function () {
+            const imageName = document.getElementById('imageName').value.trim();
+            const email = document.getElementById('email').value.trim();
             const certificateImage = document.getElementById('CertificateImage');
-            const canvaEmbedContainer = document.getElementById('canvaEmbedContainer'); // Canva container
+            const canvaEmbedContainer = document.getElementById('canvaEmbedContainer');
 
-            function checkImageInFolder(index) {
-                if (index >= folders.length) {
-                    if (!found) {
-                        alert('Certificate not found in any folder.');
-                        certificateImage.style.display = 'none';
-                        canvaEmbedContainer.style.display = 'none';
-                    }
-                    return;
-                }
-
-                const folder = folders[index];
-                const imageUrl = `https://verify.jgtl.org/${folder}/${imageName}.png`;
-                const img = new Image();
-                img.src = imageUrl;
-
-                img.onload = function() {
-                    certificateImage.src = imageUrl; // Set the image source
-                    certificateImage.style.display = 'block'; // Show the image
-                    canvaEmbedContainer.style.display = 'block'; // Show the Canva iframe
-                    found = true; // Image was found
-                };
-
-                img.onerror = function() {
-                    // Image not found in this folder, try the next one
-                    checkImageInFolder(index + 1);
-                };
+            // Validate inputs
+            if (!imageName || !email) {
+                alert('Please enter both Certificate No. and Email.');
+                return;
             }
 
-            if (imageName) {
-                checkImageInFolder(0); // Start checking from the first folder
-            } else {
-                alert("Please enter a valid certificate number.");
+            // Folders to check
+            const folders = ['qr_codes', 'other_folder'];
+            let found = false;
+
+            const checkImageInFolder = async (folder) => {
+                const imageUrl = `https://verify.jgtl.org/${folder}/${imageName}.png`;
+                try {
+                    const response = await fetch(imageUrl);
+                    if (response.ok) {
+                        certificateImage.src = imageUrl;
+                        certificateImage.style.display = 'block';
+                        canvaEmbedContainer.style.display = 'block';
+                        found = true;
+                    }
+                } catch (error) {
+                    console.error(`Error loading image from ${folder}:`, error);
+                }
+            };
+
+            // Search through folders
+            for (const folder of folders) {
+                await checkImageInFolder(folder);
+                if (found) break;
+            }
+
+            if (!found) {
+                alert('Certificate not found in any folder.');
+                certificateImage.style.display = 'none';
+                canvaEmbedContainer.style.display = 'none';
             }
         };
     </script>
+
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </body>
 
 </html>
